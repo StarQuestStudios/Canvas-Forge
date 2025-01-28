@@ -7,19 +7,19 @@ namespace CanvasForge {
     static void Init();
     static void ShutDown();
     
-    static void Message(std::wstring _message);
-    static void Warning(std::wstring _message);
-    static void Error(std::wstring _message);
+    static void Message(std::string _message);
+    static void Warning(std::string _message);
+    static void Error(std::string _message);
 
-    static void Throw(std::wstring _message);
+    static void Throw(std::string _message);
 
-    static std::function<void(std::wstring _message)> customLogFunc;
+    static std::function<void(std::string _message)> customLogFunc;
   private:
-    static void SendMessage(std::wstring _prefix, std::wstring _message, int _color);
+    static void SendMessage(std::string _prefix, std::string _message, int _color);
 
     static std::string currentLogFile;
-    static std::wfstream logStream;
-    static std::wstring logString;
+    static std::fstream logStream;
+    static std::string logString;
 
   };
 }

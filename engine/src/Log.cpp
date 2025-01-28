@@ -5,9 +5,9 @@
 namespace CanvasForge
 {
   std::string Log::currentLogFile;
-  std::wfstream Log::logStream;
-  std::wstring Log::logString;
-  std::function<void(std::wstring _message)> Log::customLogFunc;
+  std::fstream Log::logStream;
+  std::string Log::logString;
+  std::function<void(std::string _message)> Log::customLogFunc;
 
   void Log::Init()
   {
@@ -37,22 +37,22 @@ namespace CanvasForge
 #endif
   }
 
-  void Log::Message(std::wstring _message)
+  void Log::Message(std::string _message)
   {
-    SendMessage(L"Message", _message, 7);
+    SendMessage("Message", _message, 7);
   }
 
-  void Log::Warning(std::wstring _message)
+  void Log::Warning(std::string _message)
   {
-    SendMessage(L"Warning", _message, 14);
+    SendMessage("Warning", _message, 14);
   }
 
-  void Log::Error(std::wstring _message)
+  void Log::Error(std::string _message)
   {
-    SendMessage(L"Error", _message, 12);
+    SendMessage("Error", _message, 12);
   }
 
-  void Log::Throw(std::wstring _message)
+  void Log::Throw(std::string _message)
   {
     // TODO: Implement a way to throw exceptions
     // Engine::os->Throw(_message);
@@ -64,27 +64,27 @@ namespace CanvasForge
     Engine::Quit();
   }
 
-  void Log::SendMessage(std::wstring _prefix, std::wstring _message, int _color)
+  void Log::SendMessage(std::string _prefix, std::string _message, int _color)
   {
 #ifndef ACE_DIST
     std::time_t t = std::time(nullptr);
     std::tm timestamp = *std::localtime(&t);
-    _message = L"[%T][" + _prefix + L"] " + _message;
+    _message = "[%T][" + _prefix + "] " + _message;
 #ifdef __WIN32__
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, _color);
-    std::wcout << std::put_time(&timestamp, _message.c_str()) << std::endl;
+    std::cout << std::put_time(&timestamp, _message.c_str()) << std::endl;
     logStream << std::put_time(&timestamp, _message.c_str()) << std::endl;
 #else
-    std::wstring ColorCode = L"\033[0m";
+    std::string ColorCode = "\033[0m";
 
     if (_color == 12)
     {
-      ColorCode = L"\033[31m";
+      ColorCode = "\033[31m";
     }
     else if (_color == 14)
     {
-      ColorCode = L"\033[33m";
+      ColorCode = "\033[33m";
     }
 
     if (Engine::os != nullptr)
@@ -101,7 +101,7 @@ namespace CanvasForge
 #endif
     if (customLogFunc != NULL)
     {
-      _message.replace(_message.find(L"[%T]"), 4, L"");
+      _message.replace(_message.find("[%T]"), 4, "");
       customLogFunc(_message);
     }
   }
