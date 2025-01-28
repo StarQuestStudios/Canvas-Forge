@@ -28,7 +28,7 @@ else()
 target_sources(CanvasForge PRIVATE ${sources})
 endif()
 
-target_precompile_headers(CanvasForge PUBLIC src/CFpch.hpp)
+target_precompile_headers(CanvasForge PUBLIC include/CFpch.hpp)
 
 # set(ENTT_INCLUDE_NATVIS ON)
 # add_subdirectory(submodules/entt)
