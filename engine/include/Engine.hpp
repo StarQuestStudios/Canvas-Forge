@@ -17,12 +17,12 @@ namespace CanvasForge {
 
   class Engine {
   public:
-    static int Init(std::string _title, int _width, int _height, RenderMode _mode, RenderAPI _api);
+    static uint32_t Init(std::string _title, uint32_t _width, uint32_t _height, RenderMode _mode, RenderAPI _api);
 
-    static void Quit(int _code = 0);
+    static void Quit(uint32_t _code = 0);
 
   private:
-    static int m_statusCode;
+    static uint32_t m_statusCode;
     static bool m_isRunning;
   };
 }

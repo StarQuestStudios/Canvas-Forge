@@ -2,10 +2,10 @@
 #include "Engine.hpp"
 
 namespace CanvasForge {
-  int Engine::m_statusCode;
+  uint32_t Engine::m_statusCode;
   bool Engine::m_isRunning;
 
-  int Engine::Init(std::string _title, int _width, int _height, RenderMode _mode, RenderAPI _api) {
+  uint32_t Engine::Init(std::string _title, uint32_t _width, uint32_t _height, RenderMode _mode, RenderAPI _api) {
     /* Setup */
     Log::Message("Engine startup...");
     m_isRunning = true;
@@ -29,7 +29,7 @@ namespace CanvasForge {
     return m_statusCode;
   }
 
-  void Engine::Quit(int _code = 0) {
+  void Engine::Quit(uint32_t _code) {
     m_statusCode = _code;
     m_isRunning = false;
   }

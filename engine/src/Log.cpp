@@ -87,11 +87,11 @@ namespace CanvasForge
       ColorCode = "\033[33m";
     }
 
-    if (Engine::os != nullptr)
+    /*if (Engine::os != nullptr)
     {
       Engine::os->LogMessage(_message);
-    }
-    std::wcout << ColorCode << std::put_time(&timestamp, _message.c_str()) << std::endl;
+    }*/
+    std::cout << ColorCode << std::put_time(&timestamp, _message.c_str()) << std::endl;
 #endif
 
 #ifndef ACE_PLATFORM_ANDROID
