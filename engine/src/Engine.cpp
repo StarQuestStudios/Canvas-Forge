@@ -7,6 +7,7 @@ namespace CanvasForge {
 
   uint32_t Engine::Init(std::string _title, uint32_t _width, uint32_t _height, RenderMode _mode, RenderAPI _api) {
     /* Setup */
+    Log::Init();
     Log::Message("Engine startup...");
     m_isRunning = true;
     m_statusCode = 0;
@@ -26,6 +27,7 @@ namespace CanvasForge {
 
     /* Shutdown */
 
+    Log::ShutDown();
     return m_statusCode;
   }
 
