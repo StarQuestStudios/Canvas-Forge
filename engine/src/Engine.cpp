@@ -27,6 +27,8 @@ namespace CanvasForge {
 
     /* Shutdown */
 
+    
+
     Log::ShutDown();
     return m_statusCode;
   }
