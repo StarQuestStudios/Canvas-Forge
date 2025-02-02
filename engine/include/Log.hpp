@@ -20,6 +20,5 @@ namespace CanvasForge {
     static std::string currentLogFile;
     static std::fstream logStream;
     static std::string logString;
-
   };
 }
