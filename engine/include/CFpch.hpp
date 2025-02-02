@@ -24,4 +24,5 @@
 
 /* Engine */
 #include "Log.hpp"
+#include "core/Uuid.hpp"
 #include "Engine.hpp"
