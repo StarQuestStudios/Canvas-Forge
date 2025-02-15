@@ -1,5 +1,5 @@
 #include "CFpch.hpp"
-#include "Uuid.hpp"
+#include "core/Uuid.hpp"
 
 namespace CanvasForge {
 	static std::random_device randomDevice;
