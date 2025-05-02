@@ -4,11 +4,13 @@
 namespace CanvasForge {
   uint32_t Engine::m_statusCode;
   bool Engine::m_isRunning;
+  Application* Engine::m_app;
 
-  uint32_t Engine::Init(std::string _title, uint32_t _width, uint32_t _height, RenderMode _mode, RenderAPI _api) {
+  uint32_t Engine::Init(Application* _app, std::string _title, uint32_t _width, uint32_t _height, RenderMode _mode, RenderAPI _api) {
     /* Setup */
     Log::Init();
     Log::Message("Engine startup...");
+    m_app = _app;
     m_isRunning = true;
     m_statusCode = 0;
 
@@ -20,13 +22,32 @@ namespace CanvasForge {
       
 
     }
+
+    if (m_app) {
+      m_app->Init();
+    }
     
     while (m_isRunning) {
+      /* Start Frame */
+
+
+      if (m_app) {
+        m_app->Update();
+      }
+
+      /* End Frame */
 
     }
 
     /* Shutdown */
+    if (m_app) {
+      m_app->Shutdown();
+      delete m_app;
+      m_app = nullptr;
+    }
 
+    Log::Message("Engine shutdown...");
+    /* Shutdown Engine */
     
 
     Log::ShutDown();
