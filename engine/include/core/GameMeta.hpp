@@ -5,5 +5,6 @@ namespace PcRuntime {
   struct GameMeta {
     std::string Name;
     std::string Developer;
+    UUID SceneId;
   };
 }

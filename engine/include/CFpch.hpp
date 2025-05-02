@@ -19,7 +19,11 @@
 #include <Windows.h>
 #endif
 
+/* OSLib */
+#include "OSLib.hpp"
+
 /* Engine */
 #include "Log.hpp"
+#include "core/Uuid.hpp"
 #include "Application.hpp"
 #include "Engine.hpp"
