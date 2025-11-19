@@ -27,6 +27,6 @@ namespace CFPCRuntime {
 }
 
 int main() {
-  return CanvasForge::Engine::Init("Canvas Forge Pc Runtime", 800, 600, 
+  return CanvasForge::Engine::Init(new CFPCRuntime::Runtime() ,"Canvas Forge Pc Runtime", 800, 600, 
     CanvasForge::RenderMode::Windowed, CanvasForge::RenderAPI::Vulkan);
 }

@@ -1,7 +1,7 @@
 #pragma once
-#include "PRpch.hpp"
+#include "CFpch.hpp"
 
-namespace PcRuntime {
+namespace CanvasForge {
   struct GameMeta {
     std::string Name;
     std::string Developer;

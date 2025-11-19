@@ -25,7 +25,7 @@ namespace CanvasForge
     std::ofstream tmpStream("./Logs/" + currentLogFile);
     tmpStream.close();
 
-#ifndef ACE_DIST
+#ifndef CF_DIST
     logStream.open("./Logs/" + currentLogFile);
 #endif
   }
@@ -56,7 +56,7 @@ namespace CanvasForge
   {
     // TODO: Implement a way to throw exceptions
     // Engine::os->Throw(_message);
-#ifdef ACE_PLATFORM_WIN
+#ifdef CF_PLATFORM_WIN
 #elif __EMSCRIPTEN__
     std::string warnjs = "alert('ERROR: " + Utils::Wstr2str(_message) + "')";
     emscripten_run_script(warnjs.c_str());
@@ -66,7 +66,7 @@ namespace CanvasForge
 
   void Log::SendMessage(std::string _prefix, std::string _message, int _color)
   {
-#ifndef ACE_DIST
+#ifndef CF_DIST
     std::time_t t = std::time(nullptr);
     std::tm timestamp = *std::localtime(&t);
     _message = "[%T][" + _prefix + "] " + _message;
@@ -94,7 +94,7 @@ namespace CanvasForge
     std::cout << ColorCode << std::put_time(&timestamp, _message.c_str()) << std::endl;
 #endif
 
-#ifndef ACE_PLATFORM_ANDROID
+#ifndef CF_PLATFORM_ANDROID
     logStream << std::put_time(&timestamp, _message.c_str()) << std::endl;
 #endif
 
