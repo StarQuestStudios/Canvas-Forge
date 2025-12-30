@@ -17,6 +17,9 @@
 /* OS */
 #ifdef WIN32
 #include <Windows.h>
+#elif __APPLE__
+#include <CoreFoundation/CoreFoundation.h>
+#include <Cocoa/Cocoa.h>
 #endif
 
 /* OSLib */

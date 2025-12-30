@@ -13,6 +13,7 @@ namespace CanvasForge {
   enum class RenderAPI {
     None = 0,
     Vulkan = 1,
+    Metal = 2,
   };
 
   class Engine {

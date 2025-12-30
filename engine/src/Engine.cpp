@@ -23,9 +23,12 @@ namespace CanvasForge {
 
     }
 
+    Log::Message("Engine initialized.");
+    
     if (m_app) {
       m_app->Init();
     }
+
     
     while (m_isRunning) {
       /* Start Frame */

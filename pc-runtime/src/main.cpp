@@ -3,13 +3,12 @@
 namespace CFPCRuntime {
   class Runtime : public CanvasForge::Application {
   public:
-    Runtime() {
+    Runtime() {}
 
-    }
     ~Runtime() {}
 
     void Init() override {
-      
+
     }
 
     void Update() override {
@@ -28,5 +27,5 @@ namespace CFPCRuntime {
 
 int main() {
   return CanvasForge::Engine::Init(new CFPCRuntime::Runtime() ,"Canvas Forge Pc Runtime", 800, 600, 
-    CanvasForge::RenderMode::Windowed, CanvasForge::RenderAPI::Vulkan);
+  CanvasForge::RenderMode::Windowed, CanvasForge::RenderAPI::Metal);
 }

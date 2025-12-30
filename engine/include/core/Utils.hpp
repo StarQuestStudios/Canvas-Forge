@@ -5,6 +5,6 @@ namespace CanvasForge
 {
   class Utils {
   public:
-    
+
   };
 }
