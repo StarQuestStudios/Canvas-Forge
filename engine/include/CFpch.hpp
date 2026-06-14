@@ -17,7 +17,7 @@
 /* OS */
 #ifdef WIN32
 #include <Windows.h>
-#elif __APPLE__
+#elif __OBJC__
 #include <CoreFoundation/CoreFoundation.h>
 #include <Cocoa/Cocoa.h>
 #endif
@@ -30,3 +30,6 @@
 #include "core/Uuid.hpp"
 #include "Application.hpp"
 #include "Engine.hpp"
+
+/* Renderer */
+#include "renderer/Window.hpp"

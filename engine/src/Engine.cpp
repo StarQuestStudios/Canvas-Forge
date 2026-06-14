@@ -1,5 +1,7 @@
 #include "CFpch.hpp"
 #include "Engine.hpp"
+#include "renderer/Window.hpp"
+#include "platform/OSX/OSXWindow.hpp"
 
 namespace CanvasForge {
   uint32_t Engine::m_statusCode;
@@ -13,10 +15,14 @@ namespace CanvasForge {
     m_app = _app;
     m_isRunning = true;
     m_statusCode = 0;
+    Window* window = new OSXWindow();
 
     if (_api != RenderAPI::None) {
       /* Setup Window */
-
+      window->m_height = 720;
+      window->m_width = 1080;
+      window->Init(_mode);
+      window->SetTitle("Canvas Forge");
 
       /* Setup Renderer */
       
@@ -32,7 +38,7 @@ namespace CanvasForge {
     
     while (m_isRunning) {
       /* Start Frame */
-
+      window->Update();
 
       if (m_app) {
         m_app->Update();
@@ -47,6 +53,7 @@ namespace CanvasForge {
       m_app->Shutdown();
       delete m_app;
       m_app = nullptr;
+      window->ShutDown();
     }
 
     Log::Message("Engine shutdown...");

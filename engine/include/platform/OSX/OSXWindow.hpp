@@ -3,6 +3,12 @@
 #include "CFpch.hpp"
 #include "renderer/Window.hpp"
 
+#ifdef __OBJC__
+    @class NSWindow;
+#else
+    typedef struct objc_object NSWindow;
+#endif
+
 namespace CanvasForge {
   class OSXWindow : public Window {
   public:
@@ -17,7 +23,7 @@ namespace CanvasForge {
     void ShutDown() override;
 
   private:
-  
+    NSWindow* m_CocoaWindow;
   }; 
 }
 #endif // __APPLE__
