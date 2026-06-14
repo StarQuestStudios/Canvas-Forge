@@ -4,3 +4,6 @@
 [submodule "docs"]
 	path = docs
 	url = https://github.com/StarQuestStudios/Canvas-Forge-Docs.git
+[submodule "engine/submodules/metal"]
+	path = engine/submodules/metal
+	url = https://github.com/apple/metal-cpp.git
