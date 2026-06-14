@@ -9,7 +9,7 @@
     typedef struct objc_object NSWindow;
 #endif
 
-namespace CanvasForge {
+namespace CanvasForge::Engine {
   class OSXWindow : public Window {
   public:
     OSXWindow();

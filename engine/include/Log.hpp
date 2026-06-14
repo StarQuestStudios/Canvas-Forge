@@ -1,7 +1,7 @@
 #pragma once 
 #include "CFpch.hpp"
 
-namespace CanvasForge {
+namespace CanvasForge::Engine {
   class Log {
   public:
     static void Init();

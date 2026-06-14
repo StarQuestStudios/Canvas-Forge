@@ -3,7 +3,7 @@
 #include "renderer/Window.hpp"
 #include "platform/OSX/OSXWindow.hpp"
 
-namespace CanvasForge {
+namespace CanvasForge::Engine {
   uint32_t Engine::m_statusCode;
   bool Engine::m_isRunning;
   Application* Engine::m_app;

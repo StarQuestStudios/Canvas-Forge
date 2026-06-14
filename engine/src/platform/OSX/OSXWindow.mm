@@ -1,7 +1,7 @@
 #include <CFpch.hpp>
 #include "platform/OSX/OSXWindow.hpp"
 
-namespace CanvasForge {
+namespace CanvasForge::Engine {
   OSXWindow::OSXWindow() {
 
   }
@@ -33,7 +33,7 @@ namespace CanvasForge {
       NSEvent* event = nil;
       do {
         event = [NSApp nextEventMatchingMask:NSEventMaskAny
-                  untilDate:[NSDate distantPast] // Nicht blockieren
+                  untilDate:[NSDate distantPast]
                   inMode:NSDefaultRunLoopMode
                   dequeue:YES];
         if (event) {

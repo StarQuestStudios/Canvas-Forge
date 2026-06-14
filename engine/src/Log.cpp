@@ -2,7 +2,7 @@
 #include "Log.hpp"
 #include "Engine.hpp"
 
-namespace CanvasForge
+namespace CanvasForge::Engine
 {
   std::string Log::currentLogFile;
   std::fstream Log::logStream;

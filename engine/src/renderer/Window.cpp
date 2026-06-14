@@ -3,7 +3,7 @@
 #include "platform/OSX/OSXWindow.hpp"
 #endif
 
-namespace CanvasForge {
+namespace CanvasForge::Engine {
   Window::Window() {
 
   }

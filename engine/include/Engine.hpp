@@ -1,7 +1,7 @@
 #pragma once
 #include "CFpch.hpp"
 
-namespace CanvasForge {
+namespace CanvasForge::Engine {
 
   enum class RenderMode {
     Windowed = 0,

@@ -20,6 +20,7 @@
 #elif __OBJC__
 #include <CoreFoundation/CoreFoundation.h>
 #include <Cocoa/Cocoa.h>
+#include <metal/Metal.hpp>
 #endif
 
 /* OSLib */

@@ -1,7 +1,7 @@
 #pragma once
 #include "CFpch.hpp"
 
-namespace CanvasForge {
+namespace CanvasForge::Engine {
   class UUID {
   public:
     UUID();
@@ -14,8 +14,8 @@ namespace CanvasForge {
 
 namespace std {
 	template<>
-	struct hash<CanvasForge::UUID> {
-		std::size_t operator()(const CanvasForge::UUID& uuid) const {
+	struct hash<CanvasForge::Engine::UUID> {
+		std::size_t operator()(const CanvasForge::Engine::UUID& uuid) const {
 			return hash<uint64_t>()((uint64_t) uuid);
 		}
 	};

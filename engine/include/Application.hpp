@@ -1,7 +1,7 @@
 #pragma once
 #include "CFpch.hpp"
 
-namespace CanvasForge {
+namespace CanvasForge::Engine {
   class Application {
   public:
     Application() {}
