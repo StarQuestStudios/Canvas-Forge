@@ -3,6 +3,8 @@
 
 namespace CanvasForge::Engine {
 
+  class Window;
+
   enum class RenderMode {
     Windowed = 0,
     FullScreen = 1,
@@ -22,6 +24,7 @@ namespace CanvasForge::Engine {
 
     static void Quit(uint32_t _code = 0);
 
+    static Window* m_Window;
   private:
     static uint32_t m_statusCode;
     static bool m_isRunning;

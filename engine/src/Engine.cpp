@@ -2,8 +2,10 @@
 #include "Engine.hpp"
 #include "renderer/Window.hpp"
 #include "platform/OSX/OSXWindow.hpp"
+#include "renderer/metal/MetalRenderer.hpp"
 
 namespace CanvasForge::Engine {
+  Window* Engine::m_Window;
   uint32_t Engine::m_statusCode;
   bool Engine::m_isRunning;
   Application* Engine::m_app;
@@ -15,14 +17,16 @@ namespace CanvasForge::Engine {
     m_app = _app;
     m_isRunning = true;
     m_statusCode = 0;
-    Window* window = new OSXWindow();
+    m_Window = new OSXWindow();
+    Renderer* renderer = new MetalRenderer();
 
     if (_api != RenderAPI::None) {
       /* Setup Window */
-      window->m_height = 720;
-      window->m_width = 1080;
-      window->Init(_mode);
-      window->SetTitle("Canvas Forge");
+      m_Window->m_height = 720;
+      m_Window->m_width = 1080;
+      m_Window->Init(_mode);
+      m_Window->SetTitle("Canvas Forge");
+      renderer->Init();
 
       /* Setup Renderer */
       
@@ -38,7 +42,7 @@ namespace CanvasForge::Engine {
     
     while (m_isRunning) {
       /* Start Frame */
-      window->Update();
+      m_Window->Update();
 
       if (m_app) {
         m_app->Update();
@@ -53,7 +57,7 @@ namespace CanvasForge::Engine {
       m_app->Shutdown();
       delete m_app;
       m_app = nullptr;
-      window->ShutDown();
+      m_Window->ShutDown();
     }
 
     Log::Message("Engine shutdown...");

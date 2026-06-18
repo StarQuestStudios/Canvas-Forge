@@ -9,9 +9,13 @@ file(GLOB_RECURSE sources CONFIGURE_DEPENDS "src/*.cpp")
 add_executable(PcRuntime ${sources})
 include_directories("include")
 
-target_precompile_headers(PcRuntime PUBLIC "include/PRpch.hpp")
+target_precompile_headers(PcRuntime PRIVATE "include/PRpch.hpp")
 
-set(OpenGL ON)
+set(OpenGL OFF)
 set(DX11 OFF)
 add_subdirectory(../engine build)
-target_link_libraries(PcRuntime CanvasForge)
+find_library(METAL_FRAMEWORK Metal REQUIRED)
+find_library(FOUNDATION_FRAMEWORK Foundation REQUIRED)
+find_library(QUARTZCORE_FRAMEWORK QuartzCore REQUIRED)
+
+target_link_libraries(PcRuntime CanvasForge ${METAL_FRAMEWORK} ${FOUNDATION_FRAMEWORK} ${QUARTZCORE_FRAMEWORK})

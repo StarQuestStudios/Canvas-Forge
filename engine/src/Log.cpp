@@ -57,6 +57,11 @@ namespace CanvasForge::Engine
     // TODO: Implement a way to throw exceptions
     // Engine::os->Throw(_message);
 #ifdef CF_PLATFORM_WIN
+
+#elif __APPLE__
+
+    Log::Error(_message);
+
 #elif __EMSCRIPTEN__
     std::string warnjs = "alert('ERROR: " + Utils::Wstr2str(_message) + "')";
     emscripten_run_script(warnjs.c_str());

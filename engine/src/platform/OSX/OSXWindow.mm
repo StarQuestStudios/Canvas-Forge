@@ -1,5 +1,7 @@
 #include <CFpch.hpp>
 #include "platform/OSX/OSXWindow.hpp"
+#import <QuartzCore/CAMetalLayer.h>
+//#include "renderer/metal/MetalRenderer.hpp"
 
 namespace CanvasForge::Engine {
   OSXWindow::OSXWindow() {
@@ -22,9 +24,16 @@ namespace CanvasForge::Engine {
       styleMask:(style) 
       backing:NSBackingStoreBuffered 
       defer:NO];
+
+    m_MetalLayer = [[CAMetalLayer alloc] init];
+    //m_MetalLayer.device = MetalRenderer::m_Device;
+    m_MetalLayer.opaque = YES;
+    m_MetalLayer.drawableSize = [m_CocoaWindow.contentView convertSizeToBacking:m_CocoaWindow.contentView.frame.size];
+
+    m_CocoaWindow.contentView.layer = m_MetalLayer;
+
     [m_CocoaWindow makeKeyAndOrderFront:nil];
     [app activateIgnoringOtherApps:YES];
-
     [app finishLaunching];
   }
 
@@ -41,6 +50,10 @@ namespace CanvasForge::Engine {
         }
       } while (event);
     }
+  }
+
+  void* OSXWindow::getMetalLayer() {
+    return (void*) m_MetalLayer;
   }
 
   void OSXWindow::SetTitle(std::string _title) {

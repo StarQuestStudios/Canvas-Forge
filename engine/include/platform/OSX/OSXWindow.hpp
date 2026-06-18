@@ -5,11 +5,16 @@
 
 #ifdef __OBJC__
     @class NSWindow;
+    @class CAMetalLayer;
 #else
     typedef struct objc_object NSWindow;
+    typedef struct objc_object CAMetalLayer;
 #endif
 
 namespace CanvasForge::Engine {
+
+  class MetalRenderer;
+
   class OSXWindow : public Window {
   public:
     OSXWindow();
@@ -22,8 +27,11 @@ namespace CanvasForge::Engine {
 
     void ShutDown() override;
 
+    void* getMetalLayer();
+
   private:
     NSWindow* m_CocoaWindow;
+    CAMetalLayer* m_MetalLayer;
   }; 
 }
 #endif // __APPLE__

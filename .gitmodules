@@ -1,6 +1,7 @@
 [submodule "engine/submodules/oslib"]
 	path = engine/submodules/oslib
 	url = https://github.com/Tarek-Laun-Industries/OS-Lib.git
+	branch = main
 [submodule "docs"]
 	path = docs
 	url = https://github.com/StarQuestStudios/Canvas-Forge-Docs.git

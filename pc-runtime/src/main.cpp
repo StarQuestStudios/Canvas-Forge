@@ -1,7 +1,7 @@
 #include "PRpch.hpp"
 
 namespace CFPCRuntime {
-  class Runtime : public CanvasForge::Application {
+  class Runtime : public CanvasForge::Engine::Application {
   public:
     Runtime() {}
 
@@ -26,6 +26,6 @@ namespace CFPCRuntime {
 }
 
 int main() {
-  return CanvasForge::Engine::Init(new CFPCRuntime::Runtime() ,"Canvas Forge Pc Runtime", 800, 600, 
-  CanvasForge::RenderMode::Windowed, CanvasForge::RenderAPI::Metal);
+  return CanvasForge::Engine::Engine::Init(new CFPCRuntime::Runtime() ,"Canvas Forge Pc Runtime", 800, 600, 
+  CanvasForge::Engine::RenderMode::Windowed, CanvasForge::Engine::RenderAPI::Metal);
 }

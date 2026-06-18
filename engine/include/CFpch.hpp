@@ -17,10 +17,14 @@
 /* OS */
 #ifdef WIN32
 #include <Windows.h>
-#elif __OBJC__
+#endif
+
+#ifdef __APPLE__
+#ifdef __OBJC__
 #include <CoreFoundation/CoreFoundation.h>
 #include <Cocoa/Cocoa.h>
-#include <metal/Metal.hpp>
+#else
+#endif
 #endif
 
 /* OSLib */
@@ -28,6 +32,8 @@
 
 /* Engine */
 #include "Log.hpp"
+#include "core/Vector.hpp"
+#include "renderer/Mesh.hpp"
 #include "core/Uuid.hpp"
 #include "Application.hpp"
 #include "Engine.hpp"
