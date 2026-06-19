@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.13.3 FATAL_ERROR)
 
 option(Vulkan "Vulkan" OFF)
+option(Metal "Metal" ON)
 
 if (APPLE)
 project(CanvasForge C CXX OBJC OBJCXX)
@@ -29,15 +30,14 @@ endif()
 
 target_precompile_headers(CanvasForge PRIVATE include/CFpch.hpp)
 
-# set(ENTT_INCLUDE_NATVIS ON)
-# add_subdirectory(submodules/entt)
-# target_link_libraries(CanvasForge EnTT::EnTT)
-
-# add_subdirectory(submodules/glm)
-# target_link_libraries(CanvasForge glm::glm)
-
 if (NOT WIN32)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+endif()
+
+if (Metal)
+add_compile_definitions(CF_RENDERAPI_METAL)
+elseif(Vulkan)
+
 endif()
 
 if (WIN32)
@@ -53,14 +53,4 @@ find_library(COCOA_FRAMEWORK Cocoa)
 target_link_libraries(CanvasForge ${GAME_CONTROLLER_FRAMEWORK} ${COCOA_FRAMEWORK} ${METAL_FRAMEWORK} ${FOUNDATION_FRAMEWORK} ${QUARTZCORE_FRAMEWORK})
 elseif(UNIX)
 add_compile_definitions(CF_PLATFORM_LINUX)
-endif()
-
-if (WIN32 OR APPLE OR UNIX)
-set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-set(GLFW_USE_MENUBAR OFF CACHE BOOL "" FORCE)
-
-# add_subdirectory(submodules/glfw)
-# target_link_libraries(CanvasForge glfw)
 endif()

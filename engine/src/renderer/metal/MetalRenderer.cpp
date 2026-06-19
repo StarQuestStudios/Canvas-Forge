@@ -1,4 +1,4 @@
-#if __APPLE__
+#if __APPLE__ && CF_RENDERAPI_METAL
 #include "renderer/metal/MetalRenderer.hpp"
 #define NS_PRIVATE_IMPLEMENTATION
 #define CA_PRIVATE_IMPLEMENTATION

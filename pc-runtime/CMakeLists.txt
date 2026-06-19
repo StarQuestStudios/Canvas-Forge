@@ -13,6 +13,7 @@ target_precompile_headers(PcRuntime PRIVATE "include/PRpch.hpp")
 
 set(OpenGL OFF)
 set(DX11 OFF)
+set(Metal ON)
 add_subdirectory(../engine build)
 find_library(METAL_FRAMEWORK Metal REQUIRED)
 find_library(FOUNDATION_FRAMEWORK Foundation REQUIRED)
