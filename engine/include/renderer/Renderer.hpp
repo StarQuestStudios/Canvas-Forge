@@ -10,6 +10,13 @@ namespace CanvasForge::Engine {
     virtual void Init() {}
 
     virtual void ShutDown() {}
+
+    virtual void BeginFrame() {}
+    virtual void EndFrame() {}
+
+    virtual void Clear() {}
+    virtual void ClearColor(Vector3 _color) {}
+
   private:
     
   };

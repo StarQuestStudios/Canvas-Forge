@@ -23,7 +23,6 @@
 #ifdef __OBJC__
 #include <CoreFoundation/CoreFoundation.h>
 #include <Cocoa/Cocoa.h>
-#else
 #endif
 #endif
 
@@ -39,4 +38,5 @@
 #include "Engine.hpp"
 
 /* Renderer */
+#define FRAME_IN_FLIGHT_COUNT 3
 #include "renderer/Window.hpp"

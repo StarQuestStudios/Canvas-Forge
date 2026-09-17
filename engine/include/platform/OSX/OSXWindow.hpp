@@ -27,6 +27,8 @@ namespace CanvasForge::Engine {
 
     void ShutDown() override;
 
+    bool IsOpen() override;
+
     void* getMetalLayer();
 
   private:

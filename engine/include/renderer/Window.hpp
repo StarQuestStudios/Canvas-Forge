@@ -14,6 +14,8 @@ namespace CanvasForge::Engine {
 
     virtual void ShutDown() = 0;
 
+    virtual bool IsOpen() = 0;
+
     static Window* createWindow();
 
     uint32_t m_width;

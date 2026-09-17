@@ -1,4 +1,4 @@
-#if __APPLE__
+#if __APPLE__ && CF_RENDERAPI_METAL
 #pragma once
 #include "CFpch.hpp"
 #include "renderer/Renderer.hpp"
@@ -16,6 +16,7 @@ namespace MTL4 {
 
 namespace CA {
   class MetalLayer;
+  class MetalDrawable;
 }
 
 namespace CanvasForge::Engine {
@@ -27,12 +28,20 @@ namespace CanvasForge::Engine {
     void Init() override;
     void ShutDown() override;
 
+    void BeginFrame() override;
+    void EndFrame() override;
+
+    void Clear() override;
+    void ClearColor(Vector3 _color) override;
+
   private:
     MTL::Device* m_Device;
     MTL4::CommandQueue* m_CommandQueue;
     MTL4::CommandBuffer* m_CommandBuffer;
-    MTL4::CommandAllocator* m_CommandAllocators[3];
+    MTL4::CommandAllocator* m_CommandAllocators[FRAME_IN_FLIGHT_COUNT];
     CA::MetalLayer* m_MetalLayer;
+    CA::MetalDrawable* m_Drawable;
+    int m_CurrentFrame;
   };
 }
 #endif

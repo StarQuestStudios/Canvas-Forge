@@ -20,6 +20,8 @@ namespace CanvasForge::Engine {
   void MetalRenderer::Init() {
     Log::Message("Start Initilizing Metal4");
     
+    m_CurrentFrame = 0;
+
     m_Device = MTL::CreateSystemDefaultDevice();
     OSXWindow* window = (OSXWindow*) Engine::m_Window;
     m_MetalLayer = (CA::MetalLayer*) window->getMetalLayer();
@@ -41,22 +43,49 @@ namespace CanvasForge::Engine {
       Log::Throw("Cannot create the Command Queue");
     }
 
-    m_CommandAllocators[0] = m_Device->newCommandAllocator();
-    m_CommandAllocators[1] = m_Device->newCommandAllocator();
-    m_CommandAllocators[2] = m_Device->newCommandAllocator();
-
-    m_CommandAllocators[0]->reset();
-    m_CommandBuffer->beginCommandBuffer(m_CommandAllocators[0]);
-
-    CA::MetalDrawable* drawable = m_MetalLayer->nextDrawable();
-
-    if (drawable == nullptr) {
-      Log::Throw("Cannot get Drawable");
+    for (int i = 0; i < FRAME_IN_FLIGHT_COUNT; i++) {
+      m_CommandAllocators[i] = m_Device->newCommandAllocator();
     }
 
+    m_Drawable = m_MetalLayer->nextDrawable();
+
+    if (m_Drawable == nullptr) {
+      Log::Throw("Cannot get Drawable");
+    }
+    
+    Log::Message("Metal4 Initilized!");
+  }
+
+  void MetalRenderer::ShutDown() {
+
+  }
+
+  void MetalRenderer::BeginFrame() {
+    m_CurrentFrame++;
+    if (m_CurrentFrame >= FRAME_IN_FLIGHT_COUNT) {
+      m_CurrentFrame = m_CurrentFrame - FRAME_IN_FLIGHT_COUNT;
+    }
+
+    // Start Frame
+    m_Drawable = m_MetalLayer->nextDrawable();
+    m_CommandAllocators[m_CurrentFrame]->reset();
+    m_CommandBuffer->beginCommandBuffer(m_CommandAllocators[m_CurrentFrame]);
+  }
+
+  void MetalRenderer::EndFrame() {
+    // Render and Display Frame
+    m_CommandBuffer->endCommandBuffer();
+    m_CommandQueue->wait(m_Drawable);
+    m_CommandQueue->commit(&m_CommandBuffer, 1);
+    m_CommandQueue->signalDrawable(m_Drawable);
+    m_Drawable->present();
+  }
+
+
+  void MetalRenderer::Clear() {
     MTL4::RenderPassDescriptor* renderPassDescriptor = MTL4::RenderPassDescriptor::alloc()->init();
     MTL::RenderPassColorAttachmentDescriptor* colorAttachment = renderPassDescriptor->colorAttachments()->object(0);
-    colorAttachment->setTexture(drawable->texture());
+    colorAttachment->setTexture(m_Drawable->texture());
     colorAttachment->setLoadAction(MTL::LoadActionClear);
     colorAttachment->setStoreAction(MTL::StoreActionStore);
 
@@ -64,18 +93,13 @@ namespace CanvasForge::Engine {
 
     MTL4::CommandEncoder* commandEncoder = m_CommandBuffer->renderCommandEncoder(renderPassDescriptor);
     commandEncoder->endEncoding();
-    
-    m_CommandBuffer->endCommandBuffer();
-    m_CommandQueue->wait(drawable);
-    m_CommandQueue->commit(&m_CommandBuffer, 1);
-    m_CommandQueue->signalDrawable(drawable);
-    drawable->present();
-    
 
-    Log::Message("Metal4 Initilized!");
+    // commandEncoder->release();
+    // colorAttachment->release();
+    // renderPassDescriptor->release();
   }
-
-  void MetalRenderer::ShutDown() {
+  
+  void MetalRenderer::ClearColor(Vector3 _color) {
 
   }
 }

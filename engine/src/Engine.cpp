@@ -40,14 +40,18 @@ namespace CanvasForge::Engine {
     }
 
     
-    while (m_isRunning) {
+    while (m_isRunning && m_Window->IsOpen()) {
       /* Start Frame */
+      renderer->BeginFrame();
       m_Window->Update();
+
+      renderer->Clear();
 
       if (m_app) {
         m_app->Update();
       }
 
+      renderer->EndFrame();
       /* End Frame */
 
     }

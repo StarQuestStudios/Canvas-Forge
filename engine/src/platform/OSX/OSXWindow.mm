@@ -63,6 +63,10 @@ namespace CanvasForge::Engine {
     }
   }
 
+  bool OSXWindow::IsOpen() {
+    return [m_CocoaWindow isVisible];
+  }
+
   void OSXWindow::ShutDown() {
     if (m_CocoaWindow) {
       [m_CocoaWindow orderOut:nil];

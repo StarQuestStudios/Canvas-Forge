@@ -1,7 +1,7 @@
 #pragma once
 #include "CFpch.hpp"
 
-namespace CanvasFroge::Engine {
+namespace CanvasForge::Engine {
   struct Vector2 {
 
     Vector2() {
