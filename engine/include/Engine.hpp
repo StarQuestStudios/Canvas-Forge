@@ -25,6 +25,7 @@ namespace CanvasForge::Engine {
     static void Quit(uint32_t _code = 0);
 
     static Window* m_Window;
+    static Renderer* m_Renderer;
   private:
     static uint32_t m_statusCode;
     static bool m_isRunning;

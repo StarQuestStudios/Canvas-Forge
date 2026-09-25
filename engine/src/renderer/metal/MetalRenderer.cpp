@@ -22,6 +22,8 @@ namespace CanvasForge::Engine {
     
     m_CurrentFrame = 0;
 
+    m_ClearColor = Vector3(0.0f, 0.0f, 0.0f);
+
     m_Device = MTL::CreateSystemDefaultDevice();
     OSXWindow* window = (OSXWindow*) Engine::m_Window;
     m_MetalLayer = (CA::MetalLayer*) window->getMetalLayer();
@@ -58,6 +60,54 @@ namespace CanvasForge::Engine {
 
   void MetalRenderer::ShutDown() {
 
+  }
+
+  void MetalRenderer::SubmitSprite() {
+
+  }
+
+  void MetalRenderer::SubmitClearColor(Vector3 _color) {
+    m_ClearColor = _color;
+  }
+
+  void MetalRenderer::DrawFrame(FrameBuffer* _target) {
+    if (_target == nullptr) {
+      // Draw directly to the screen
+      m_CurrentFrame++;
+      if (m_CurrentFrame >= FRAME_IN_FLIGHT_COUNT) {
+        m_CurrentFrame = m_CurrentFrame - FRAME_IN_FLIGHT_COUNT;
+      }
+      
+      m_Drawable = m_MetalLayer->nextDrawable();
+      m_CommandAllocators[m_CurrentFrame]->reset();
+      m_CommandBuffer->beginCommandBuffer(m_CommandAllocators[m_CurrentFrame]);
+    }
+
+    MTL4::RenderPassDescriptor* renderPassDescriptor = MTL4::RenderPassDescriptor::alloc()->init();
+    MTL::RenderPassColorAttachmentDescriptor* colorAttachment = renderPassDescriptor->colorAttachments()->object(0);
+    colorAttachment->setTexture(m_Drawable->texture());
+    colorAttachment->setLoadAction(MTL::LoadActionClear);
+    colorAttachment->setStoreAction(MTL::StoreActionStore);
+
+    colorAttachment->setClearColor(MTL::ClearColor(m_ClearColor.x, m_ClearColor.y, m_ClearColor.z, 1.0f));
+
+    // Draw the Frame
+
+    // End the Frame
+    MTL4::CommandEncoder* commandEncoder = m_CommandBuffer->renderCommandEncoder(renderPassDescriptor);
+    commandEncoder->endEncoding();
+
+    if (_target == nullptr) {
+      m_CommandBuffer->endCommandBuffer();
+      m_CommandQueue->wait(m_Drawable);
+      m_CommandQueue->commit(&m_CommandBuffer, 1);
+      m_CommandQueue->signalDrawable(m_Drawable);
+      m_Drawable->present();
+    }
+
+    //commandEncoder->release();
+    //colorAttachment->release();
+    //renderPassDescriptor->release();
   }
 
   void MetalRenderer::BeginFrame() {

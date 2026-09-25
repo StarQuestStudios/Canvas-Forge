@@ -28,6 +28,12 @@ namespace CanvasForge::Engine {
     void Init() override;
     void ShutDown() override;
 
+    void SubmitSprite() override;
+    void SubmitClearColor(Vector3 _color) override;
+
+    void DrawFrame(FrameBuffer* _target) override;
+
+
     void BeginFrame() override;
     void EndFrame() override;
 
@@ -42,6 +48,7 @@ namespace CanvasForge::Engine {
     CA::MetalLayer* m_MetalLayer;
     CA::MetalDrawable* m_Drawable;
     int m_CurrentFrame;
+    Vector3 m_ClearColor;
   };
 }
 #endif

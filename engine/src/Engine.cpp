@@ -9,6 +9,7 @@ namespace CanvasForge::Engine {
   uint32_t Engine::m_statusCode;
   bool Engine::m_isRunning;
   Application* Engine::m_app;
+  Renderer* Engine::m_Renderer;
 
   uint32_t Engine::Init(Application* _app, std::string _title, uint32_t _width, uint32_t _height, RenderMode _mode, RenderAPI _api) {
     /* Setup */
@@ -18,15 +19,15 @@ namespace CanvasForge::Engine {
     m_isRunning = true;
     m_statusCode = 0;
     m_Window = new OSXWindow();
-    Renderer* renderer = new MetalRenderer();
+    m_Renderer = new MetalRenderer();
 
     if (_api != RenderAPI::None) {
       /* Setup Window */
       m_Window->m_height = 720;
       m_Window->m_width = 1080;
       m_Window->Init(_mode);
-      m_Window->SetTitle("Canvas Forge");
-      renderer->Init();
+      m_Window->SetTitle(_title);
+      m_Renderer->Init();
 
       /* Setup Renderer */
       
@@ -42,18 +43,11 @@ namespace CanvasForge::Engine {
     
     while (m_isRunning && m_Window->IsOpen()) {
       /* Start Frame */
-      renderer->BeginFrame();
       m_Window->Update();
-
-      renderer->Clear();
 
       if (m_app) {
         m_app->Update();
       }
-
-      renderer->EndFrame();
-      /* End Frame */
-
     }
 
     /* Shutdown */
